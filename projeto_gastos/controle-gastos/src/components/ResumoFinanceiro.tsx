@@ -1,63 +1,67 @@
-type Transacao = {
-  id: string
-  descricao: string
-  valor: number
-  tipo: 'receita' | 'despesa'
-  categoria: string
-  paga: boolean
-}
-
-type Props = {
-  transacoes: Transacao[]
-}
-
 export function ResumoFinanceiro({
   transacoes,
-}: Props) {
+}: any) {
   const receitas = transacoes
-    .filter((t) => t.tipo === 'receita')
-    .reduce((acc, t) => acc + t.valor, 0)
+    .filter(
+      (t: any) =>
+        t.tipo === 'receita',
+    )
+    .reduce(
+      (acc: number, t: any) =>
+        acc + t.valor,
+      0,
+    )
 
   const despesas = transacoes
-    .filter((t) => t.tipo === 'despesa')
-    .reduce((acc, t) => acc + t.valor, 0)
+    .filter(
+      (t: any) =>
+        t.tipo === 'despesa',
+    )
+    .reduce(
+      (acc: number, t: any) =>
+        acc + t.valor,
+      0,
+    )
 
-  const saldo = receitas - despesas
+  const saldo =
+    receitas - despesas
 
-  const moeda = new Intl.NumberFormat('pt-BR', {
-    style: 'currency',
-    currency: 'BRL',
-  })
+  const moeda =
+    new Intl.NumberFormat(
+      'pt-BR',
+      {
+        style: 'currency',
+        currency: 'BRL',
+      },
+    )
 
   return (
-    <div className="grid gap-3 sm:grid-cols-3">
-      <div className="rounded bg-slate-100 p-4 text-center">
+    <div className="grid gap-4 sm:grid-cols-3">
+
+      <div className="rounded-2xl bg-lime-50 p-6 text-center">
         <p>Receitas</p>
-        <p className="font-bold text-green-600">
+
+        <p className="mt-3 text-3xl font-bold text-lime-700">
           {moeda.format(receitas)}
         </p>
       </div>
 
-      <div className="rounded bg-slate-100 p-4 text-center">
+      <div className="rounded-2xl bg-lime-50 p-6 text-center">
         <p>Despesas</p>
-        <p className="font-bold text-red-600">
+
+        <p className="mt-3 text-3xl font-bold text-red-600">
           {moeda.format(despesas)}
         </p>
       </div>
 
-      <div className="rounded bg-slate-100 p-4 text-center">
+      <div className="rounded-2xl bg-lime-50 p-6 text-center">
         <p>Saldo</p>
 
-        <p
-          className={
-            saldo < 0
-              ? 'font-bold text-red-600'
-              : 'font-bold text-green-600'
-          }
-        >
+        <p className="mt-3 text-3xl font-bold text-lime-800">
           {moeda.format(saldo)}
         </p>
       </div>
+
     </div>
   )
 }
