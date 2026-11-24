@@ -8,3 +8,5 @@ Commit 4: Formatação css de Resumo financeiro
 
 Commit 5: Criação do componente Filtros.
 
+Commit 6 final: Tentativa de arrumar o css do Tailwind falha, Finalização do App.tsx e ListaTransações.
+
