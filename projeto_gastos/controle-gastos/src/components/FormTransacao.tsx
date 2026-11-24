@@ -1,3 +1,5 @@
+import { useState, type FormEvent } from 'react'
+
 type Categoria =
   | 'Todas'
   | 'Transporte'
@@ -17,21 +19,33 @@ type Props = {
   onAdicionar: (transacao: Transacao) => void
 }
 
-import { useState, type FormEvent } from 'react'
-
-export function FormTransacao({ onAdicionar }: Props) {
+export function FormTransacao({
+  onAdicionar,
+}: Props) {
   const [descricao, setDescricao] = useState('')
   const [valor, setValor] = useState('')
-  const [tipo, setTipo] = useState<'receita' | 'despesa'>('despesa')
-  const [categoria, setCategoria] = useState<Categoria>('Todas')
+  const [tipo, setTipo] =
+    useState<'receita' | 'despesa'>('despesa')
 
-  const descricaoInvalida = descricao.trim().length < 3
-  const valorInvalido = Number(valor) <= 0
+  const [categoria, setCategoria] =
+    useState<Categoria>('Todas')
 
-  function handleSubmit(e: FormEvent<HTMLFormElement>) {
+  const descricaoInvalida =
+    descricao.trim().length < 3
+
+  const valorInvalido =
+    Number(valor) <= 0
+
+  function handleSubmit(
+    e: FormEvent<HTMLFormElement>,
+  ) {
     e.preventDefault()
 
-    if (descricaoInvalida || valorInvalido) return
+    if (
+      descricaoInvalida ||
+      valorInvalido
+    )
+      return
 
     onAdicionar({
       id: crypto.randomUUID(),
@@ -49,67 +63,72 @@ export function FormTransacao({ onAdicionar }: Props) {
   return (
     <form
       onSubmit={handleSubmit}
-      className="rounded-xl bg-slate-100 p-4"
+      className="rounded-[30px] bg-lime-50 p-8"
     >
-      <h2 className="mb-4 text-xl font-bold">
+      <h2 className="mb-6 text-2xl font-bold text-lime-900">
         Nova transação
       </h2>
 
       <input
         value={descricao}
-        onChange={(e) => setDescricao(e.target.value)}
+        onChange={(e) =>
+          setDescricao(e.target.value)
+        }
         placeholder="Descrição"
-        className="mb-2 w-full rounded border p-2"
+        className="mb-4 w-full rounded-xl border border-lime-200 p-4"
       />
-
-      {descricaoInvalida && (
-        <p className="mb-2 text-sm text-red-600">
-          Mínimo de 3 letras.
-        </p>
-      )}
 
       <input
         type="number"
         value={valor}
-        onChange={(e) => setValor(e.target.value)}
-        placeholder="Valor"
-        className="mb-2 w-full rounded border p-2"
+        onChange={(e) =>
+          setValor(e.target.value)
+        }
+        placeholder="Valor (R$)"
+        className="mb-4 w-full rounded-xl border border-lime-200 p-4"
       />
-
-      {valorInvalido && (
-        <p className="mb-2 text-sm text-red-600">
-          Valor deve ser maior que zero.
-        </p>
-      )}
 
       <select
         value={categoria}
         onChange={(e) =>
-          setCategoria(e.target.value as Categoria)
+          setCategoria(
+            e.target.value as Categoria,
+          )
         }
-        className="mb-2 w-full rounded border p-2"
+        className="mb-4 w-full rounded-xl border border-lime-200 p-4"
       >
         <option>Todas</option>
         <option>Transporte</option>
         <option>Lanche</option>
         <option>Games</option>
-        
       </select>
 
       <select
         value={tipo}
         onChange={(e) =>
-          setTipo(e.target.value as 'receita' | 'despesa')
+          setTipo(
+            e.target.value as
+              | 'receita'
+              | 'despesa',
+          )
         }
-        className="mb-4 w-full rounded border p-2"
+        className="mb-6 w-full rounded-xl border border-lime-200 p-4"
       >
-        <option value="receita">Receita</option>
-        <option value="despesa">Despesa</option>
+        <option value="receita">
+          Receita
+        </option>
+
+        <option value="despesa">
+          Despesa
+        </option>
       </select>
 
       <button
-        disabled={descricaoInvalida || valorInvalido}
-        className="w-full rounded bg-emerald-600 py-2 text-white disabled:opacity-40"
+        disabled={
+          descricaoInvalida ||
+          valorInvalido
+        }
+        className="w-full rounded-full bg-lime-700 py-4 text-lg font-bold text-white disabled:opacity-40"
       >
         Adicionar
       </button>
