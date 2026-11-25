@@ -10,3 +10,8 @@ Commit 5: Criação do componente Filtros.
 
 Commit 6 final: Tentativa de arrumar o css do Tailwind falha, Finalização do App.tsx e ListaTransações.
 
+commit 7: Importação do tailwind no css para funcionar corretamente.
+
+## Comandos para iniciar o projeto
+$ cd controle-gastos
+$ npm run dev
